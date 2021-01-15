@@ -5,19 +5,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody playerRigidbody;
+    private Rigidbody _playerRigidbody;
+    private Animator _playerAnimator;
 
     public float jumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
     public bool gameOver;
+    private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
 
 
     // Start is called before the first frame update
     void Start()
     {
         // Gets the rigidbody component from the object.
-        playerRigidbody = GetComponent<Rigidbody>();
+        _playerRigidbody = GetComponent<Rigidbody>();
+        // Gets the Animator component from the object.
+        _playerAnimator = GetComponent<Animator>();
+
         Physics.gravity *= gravityModifier;
     }
 
@@ -29,7 +34,12 @@ public class PlayerController : MonoBehaviour
         {
             // Adds physics to the player allowing an upwards jump.
             // Immediately applies force. using the impulse mode.
-            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            
+            // Trigger the Jump animation once the space bar has been pressed.
+            _playerAnimator.SetTrigger(JumpTrig);
+            
+            
             // The player is in the air so set boolean to false.
             isOnGround = false;
         }
@@ -42,13 +52,12 @@ public class PlayerController : MonoBehaviour
         {
             // When the player collides with the ground set back to true.
             isOnGround = true;
-        } 
+        }
         else if (collision.gameObject.CompareTag(tag: "Obstacle"))
         {
             // When player collides with the obstacle, its game over.
             gameOver = true;
             Debug.Log("Game over!");
-
         }
     }
 }
