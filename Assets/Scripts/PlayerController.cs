@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = true;
     public bool gameOver;
     private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
+    private static readonly int DeathB = Animator.StringToHash("Death_b");
+    private static readonly int DeathTypeINT = Animator.StringToHash("DeathType_int");
 
 
     // Start is called before the first frame update
@@ -35,11 +37,11 @@ public class PlayerController : MonoBehaviour
             // Adds physics to the player allowing an upwards jump.
             // Immediately applies force. using the impulse mode.
             _playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            
+
             // Trigger the Jump animation once the space bar has been pressed.
             _playerAnimator.SetTrigger(JumpTrig);
-            
-            
+
+
             // The player is in the air so set boolean to false.
             isOnGround = false;
         }
@@ -58,6 +60,13 @@ public class PlayerController : MonoBehaviour
             // When player collides with the obstacle, its game over.
             gameOver = true;
             Debug.Log("Game over!");
+
+            // Set the death boolean to true. Enabling the animation.
+            _playerAnimator.SetBool(DeathB, true);
+
+            // Set the integer corresponding with the correct death animation.
+            _playerAnimator.SetInteger(DeathTypeINT, 1);
+            
         }
     }
 }
