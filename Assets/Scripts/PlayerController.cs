@@ -6,9 +6,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
+
     public float jumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
+    public bool gameOver;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +35,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision collision)
     {
-        // When the player collides with the ground set back to true.
-        isOnGround = true;
+        // check if the player collides with the ground or an obstacle.
+        if (collision.gameObject.CompareTag(tag: "Ground"))
+        {
+            // When the player collides with the ground set back to true.
+            isOnGround = true;
+        } 
+        else if (collision.gameObject.CompareTag(tag: "Obstacle"))
+        {
+            // When player collides with the obstacle, its game over.
+            gameOver = true;
+            Debug.Log("Game over!");
+
+        }
     }
 }
