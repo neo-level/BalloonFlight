@@ -2,16 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _playerRigidbody;
     private Animator _playerAnimator;
 
+    public ParticleSystem explosionParticleSystem;
+    
     public float jumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
     public bool gameOver;
+    
     private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
     private static readonly int DeathB = Animator.StringToHash("Death_b");
     private static readonly int DeathTypeINT = Animator.StringToHash("DeathType_int");
@@ -66,6 +70,9 @@ public class PlayerController : MonoBehaviour
 
             // Set the integer corresponding with the correct death animation.
             _playerAnimator.SetInteger(DeathTypeINT, 1);
+            
+            // Once the player hits the obstacle, play the explosion particle.
+            explosionParticleSystem.Play();
             
         }
     }
