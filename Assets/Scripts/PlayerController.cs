@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    public float jumpForce = 10;
+    public float jumpForce;
     public float gravityModifier;
     
     // Start is called before the first frame update
