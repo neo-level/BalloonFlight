@@ -22,7 +22,7 @@ public class RepeatBackground : MonoBehaviour
     void Update()
     {
         // Reset position if the background removes a certain distance.
-        if (transform.position.x < _repeatWidth)
+        if (transform.position.x < (_startPosition.x - _repeatWidth))
         {
             // Set the position of the background back to its original values.
             transform.position = _startPosition;
