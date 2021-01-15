@@ -9,9 +9,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _playerRigidbody;
     private Animator _playerAnimator;
 
+    // Declaring Particles.
     public ParticleSystem explosionParticleSystem;
     public ParticleSystem dirtParticle;
 
+    // Declaring sound effects.
+    public AudioClip jumpSound;
+    public AudioClip crashSound;
+    
     public float jumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
