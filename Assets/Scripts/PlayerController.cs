@@ -6,34 +6,39 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody _playerRigidbody;
     private Animator _playerAnimator;
+    private AudioSource _playerAudio;
+    private Rigidbody _playerRigidbody;
 
     // Declaring Particles.
-    public ParticleSystem explosionParticleSystem;
     public ParticleSystem dirtParticle;
+    public ParticleSystem explosionParticleSystem;
 
     // Declaring sound effects.
-    public AudioClip jumpSound;
     public AudioClip crashSound;
+    public AudioClip jumpSound;
     
-    public float jumpForce;
+    public bool gameOver;
     public float gravityModifier;
     public bool isOnGround = true;
-    public bool gameOver;
+    public float jumpForce;
 
-    private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
     private static readonly int DeathB = Animator.StringToHash("Death_b");
     private static readonly int DeathTypeINT = Animator.StringToHash("DeathType_int");
+    private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // Gets the rigidbody component from the object.
-        _playerRigidbody = GetComponent<Rigidbody>();
         // Gets the Animator component from the object.
         _playerAnimator = GetComponent<Animator>();
+        
+        // Gets the Audio Source component from the object.
+        _playerAudio = GetComponent<AudioSource>();
+        
+        // Gets the rigidbody component from the object.
+        _playerRigidbody = GetComponent<Rigidbody>();
 
         Physics.gravity *= gravityModifier;
     }
@@ -57,6 +62,9 @@ public class PlayerController : MonoBehaviour
             
             // Stop the dirt particle effect when you are jumping.
             dirtParticle.Stop();
+            
+            // Call the jump sound effect once when jumping.
+            _playerAudio.PlayOneShot(jumpSound, volumeScale: 1.0f);
         }
     }
 
@@ -87,6 +95,10 @@ public class PlayerController : MonoBehaviour
             
             // Stop the dirt particles effect when game over.
             dirtParticle.Stop();
+            
+            // Plays the crash sound effect once when hitting an obstacle.
+            _playerAudio.PlayOneShot(crashSound, volumeScale: 1.0f);
+
         }
     }
 }
