@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Check if space is pressed and if the player is on the ground.
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
         {
             // Adds physics to the player allowing an upwards jump.
             // Immediately applies force. using the impulse mode.
