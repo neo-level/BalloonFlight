@@ -10,12 +10,13 @@ public class PlayerController : MonoBehaviour
     private Animator _playerAnimator;
 
     public ParticleSystem explosionParticleSystem;
-    
+    public ParticleSystem dirtParticle;
+
     public float jumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
     public bool gameOver;
-    
+
     private static readonly int JumpTrig = Animator.StringToHash("Jump_trig");
     private static readonly int DeathB = Animator.StringToHash("Death_b");
     private static readonly int DeathTypeINT = Animator.StringToHash("DeathType_int");
@@ -48,6 +49,9 @@ public class PlayerController : MonoBehaviour
 
             // The player is in the air so set boolean to false.
             isOnGround = false;
+            
+            // Stop the dirt particle effect when you are jumping.
+            dirtParticle.Stop();
         }
     }
 
@@ -58,6 +62,8 @@ public class PlayerController : MonoBehaviour
         {
             // When the player collides with the ground set back to true.
             isOnGround = true;
+            // When the player is on the ground play the dirt particle effect.
+            dirtParticle.Play();
         }
         else if (collision.gameObject.CompareTag(tag: "Obstacle"))
         {
@@ -70,10 +76,12 @@ public class PlayerController : MonoBehaviour
 
             // Set the integer corresponding with the correct death animation.
             _playerAnimator.SetInteger(DeathTypeINT, 1);
-            
+
             // Once the player hits the obstacle, play the explosion particle.
             explosionParticleSystem.Play();
             
+            // Stop the dirt particles effect when game over.
+            dirtParticle.Stop();
         }
     }
 }
