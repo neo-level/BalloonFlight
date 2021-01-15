@@ -7,6 +7,7 @@ using UnityEngine.XR.WSA.Input;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject obstaclePrefab;
+    private PlayerController _playerControllerScript;
 
     // Fixed spawning postion for the obstacles.
     private Vector3 _spawnPosition = new Vector3(25, 0, 0);
@@ -20,6 +21,9 @@ public class SpawnManager : MonoBehaviour
     {
         // Spawn obstacles on an interval base.
         InvokeRepeating(methodName: nameof(SpawnObstacle),time: _startDelay,repeatRate: _repeatRate);
+        // Get the players script component.
+        _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        
     }
 
     // Update is called once per frame
@@ -30,7 +34,11 @@ public class SpawnManager : MonoBehaviour
     // Spawns an obstacle everytime it's called.
     private void SpawnObstacle()
     {
-        // Create instance of the obstacle object and apply its location and rotation.
-        Instantiate(obstaclePrefab, _spawnPosition, obstaclePrefab.transform.rotation);
+        // If the boolean game over is false continue to spawn obstacles.
+        if (!_playerControllerScript.gameOver)
+        {
+            // Create instance of the obstacle object and apply its location and rotation.
+            Instantiate(obstaclePrefab, _spawnPosition, obstaclePrefab.transform.rotation);
+        }
     }
 }
