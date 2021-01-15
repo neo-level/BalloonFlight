@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 1292757555}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a83a86f75eba8448e608147249f597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 835818919}
+  isLowEnough: 1
 --- !u!1001 &3042248631315047363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -826,6 +826,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3042248629292604096, guid: 0ae5bab20a4814ac0840dcc8c32cd9b2,
+        type: 3}
+      propertyPath: boingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ccb9b31174a3a43709a113a9c7cf4252, type: 3}
     - target: {fileID: 3042248630360973034, guid: 0ae5bab20a4814ac0840dcc8c32cd9b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -835,6 +840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274679859968531396, guid: 0ae5bab20a4814ac0840dcc8c32cd9b2,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ae5bab20a4814ac0840dcc8c32cd9b2, type: 3}
